@@ -14,7 +14,7 @@ image_embeddings = np.load('image_embeddings.npy')
 text_embeddings = np.load('text_embeddings.npy')
 
 # Load dataframe
-csv_file = 'C:/Users/nites/Desktop/ASSEMBLE/new_style.csv'
+csv_file = './new_style.csv'
 df = pd.read_csv(csv_file)
 
 # Load TF-IDF vectorizer
@@ -88,6 +88,6 @@ elif option == "Image Upload":
 
         st.write("Similar Images:")
         for idx in similar_images['id']:
-            st.image(f"C:/Users/nites/Desktop/ASSEMBLE/new images/{idx}.jpg", caption=f"ID: {idx}",
+            st.image(f"./new images/{idx}.jpg", caption=f"ID: {idx}",
                      use_column_width=True)
 

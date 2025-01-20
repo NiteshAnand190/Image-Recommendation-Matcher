@@ -2,11 +2,10 @@ import pandas as pd
 import shutil
 import os
 
-# Paths
-csv_file = 'C:/Users/nites/Desktop/ASSEMBLE/styles.csv'
-images_folder = 'C:/Users/nites/Desktop/ASSEMBLE/images'
-new_images_folder = 'C:/Users/nites/Desktop/ASSEMBLE/new images'
-new_csv_file = 'C:/Users/nites/Desktop/ASSEMBLE/new_style.csv'
+csv_file = './styles.csv'  # Assuming this is in the same folder as the script
+images_folder = './images'  # Assuming 'images' folder is in the same directory
+new_images_folder = './new_images'  # Will be created in the current directory
+new_csv_file = './new_style.csv'  # Path to save the new CSV file
 
 # Step 1: Load the CSV file
 df = pd.read_csv(csv_file)

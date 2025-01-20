@@ -10,7 +10,7 @@ image_embeddings = np.load('image_embeddings.npy')
 text_embeddings = np.load('text_embeddings.npy')
 
 # Load the dataframe for image details
-csv_file = 'C:/Users/nites/Desktop/ASSEMBLE/new_style.csv'
+csv_file = './new_style.csv'
 df = pd.read_csv(csv_file)
 
 # Load the saved tfidf_vectorizer using pickle

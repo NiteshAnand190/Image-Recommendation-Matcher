@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 
 # Load the CSV file
-csv_file = 'C:/Users/nites/Desktop/ASSEMBLE/new_style.csv'
+csv_file = './new_style.csv'
 df = pd.read_csv(csv_file)
 
 # Load and preprocess images
@@ -27,7 +27,7 @@ def preprocess_images(image_folder, image_ids):
 
 # Get the image IDs from the dataframe
 image_ids = df['id'].values
-image_folder = 'C:/Users/nites/Desktop/ASSEMBLE/new images'
+image_folder = './new images'
 
 # Preprocess the images
 images = preprocess_images(image_folder, image_ids)

@@ -1,32 +1,39 @@
 import pandas as pd
 import shutil
 import os
+import requests
 
-csv_file = './styles.csv'  # Assuming this is in the same folder as the script
-images_folder = './images'  # Assuming 'images' folder is in the same directory
-new_images_folder = './new_images'  # Will be created in the current directory
-new_csv_file = './new_style.csv'  # Path to save the new CSV file
+# Google Drive file IDs for CSV and Images
+csv_file_url = 'https://drive.google.com/uc?id=1o2S3KktAvFdcgD9y5s-aCDlMXbWDw1PA'  # Corrected URL for CSV file
+image_folder_id = '1R1-aXAhSKAHdR0XCVcqZy5-GwN00F4JZ'  # Folder ID for images, but each image file needs to be accessed via its ID
 
-# Step 1: Load the CSV file
-df = pd.read_csv(csv_file)
+# Load CSV directly from Google Drive
+df = pd.read_csv(csv_file_url)
 
-# Step 2: Sort the CSV based on the 'id' column
+# Define folders
+images_folder = './images'
+new_images_folder = './new_images'
+new_csv_file = './new_style.csv'
+
+# Process as usual
 df_sorted = df.sort_values(by='id')
-
-# Step 3: Extract the first 2000 rows after sorting
 df_subset = df_sorted.head(2000)
 
-# Step 4: Create a new folder for the first 2000 images
+# Create folder for new images
 os.makedirs(new_images_folder, exist_ok=True)
 
-# Step 5: Copy the corresponding images to the new folder
-for image_id in df_subset['id']:  # Assuming 'id' is the column for image numbering
-    image_filename = f"{image_id}.jpg"  # Modify if your images have a different file extension
-    image_path = os.path.join(images_folder, image_filename)
-    if os.path.exists(image_path):
-        shutil.copy(image_path, os.path.join(new_images_folder, image_filename))
+# For each image, download using Google Drive direct download link
+for image_id in df_subset['id']:
+    image_filename = f"{image_id}.jpg"  # Assuming image extension is .jpg, adjust if necessary
+    image_url = f'https://drive.google.com/uc?id={image_id}'  # Create a direct download URL using the image ID
 
-# Step 6: Save the new CSV with the first 2000 rows
+    # Download image
+    response = requests.get(image_url)
+    if response.status_code == 200:
+        with open(os.path.join(new_images_folder, image_filename), 'wb') as f:
+            f.write(response.content)
+
+# Save the new CSV file
 df_subset.to_csv(new_csv_file, index=False)
 
 print("Extraction and saving completed.")
